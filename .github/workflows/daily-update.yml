@@ -2,7 +2,7 @@ name: Daily Automated Activity Log
 
 on:
   schedule:
-    - cron: '0 12 * * *'   # Daily at 12:00 UTC
+    - cron: '0 12 * * *'
   workflow_dispatch:
 
 jobs:
@@ -42,7 +42,6 @@ jobs:
 - Study sessions today: $TODAY_SESSIONS
 - Total sessions completed: $TOTAL_SESSIONS
 - Total concepts reviewed: $TOTAL_CONCEPTS
-
 EOF
 
           jq --argjson day "$NEW_DAY" \

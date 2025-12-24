@@ -34,15 +34,7 @@ jobs:
           TOTAL_CONCEPTS=$((CONCEPTS + TODAY_CONCEPTS))
           NEW_DAY=$((DAY + 1))
 
-          cat <<EOF >> README.md
-## $DATE
-- Continued work on **$PROJECT**
-- Focused study on **$LEARNING**
-- Strengthened **$SKILL** through hands-on practice
-- Study sessions today: $TODAY_SESSIONS
-- Total sessions completed: $TOTAL_SESSIONS
-- Total concepts reviewed: $TOTAL_CONCEPTS
-EOF
+          echo -e "## $DATE\n- Continued work on **$PROJECT**\n- Focused study on **$LEARNING**\n- Strengthened **$SKILL** through hands-on practice\n- Study sessions today: $TODAY_SESSIONS\n- Total sessions completed: $TOTAL_SESSIONS\n- Total concepts reviewed: $TOTAL_CONCEPTS\n" >> README.md
 
           jq --argjson day "$NEW_DAY" \
              --argjson sessions "$TOTAL_SESSIONS" \
@@ -57,3 +49,4 @@ EOF
           git add README.md state.json
           git commit -m "Daily activity update: $DATE" || exit 0
           git push
+

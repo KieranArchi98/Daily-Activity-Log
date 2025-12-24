@@ -36,14 +36,15 @@ jobs:
           NEW_DAY=$((DAY + 1))
 
           ENTRY="## $DATE
-- Continued work on **$PROJECT**
-- Focused study on **$LEARNING**
-- Strengthened **$SKILL** through hands-on practice
-- Study sessions today: $TODAY_SESSIONS
-- Total sessions completed: $TOTAL_SESSIONS
-- Total concepts reviewed: $TOTAL_CONCEPTS
+          - Continued work on **$PROJECT**
+          - Focused study on **$LEARNING**
+          - Strengthened **$SKILL** through hands-on practice
+          - Study sessions today: $TODAY_SESSIONS
+          - Total sessions completed: $TOTAL_SESSIONS
+          - Total concepts reviewed: $TOTAL_CONCEPTS
 
-"
+          "
+
 
           echo -e "$ENTRY" >> README.md
 

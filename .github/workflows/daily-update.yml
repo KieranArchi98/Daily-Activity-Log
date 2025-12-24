@@ -1,0 +1,51 @@
+name: Daily Automated Activity
+
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+
+jobs:
+  generate-content:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate daily content
+        run: |
+          DATE=$(date '+%Y-%m-%d')
+
+          TASKS=(
+            "Reviewed networking fundamentals and subnetting logic"
+            "Worked through Python automation patterns"
+            "Improved understanding of cloud infrastructure design"
+            "Practiced PowerShell scripting concepts"
+            "Reviewed system diagnostics and monitoring techniques"
+            "Read technical documentation and best practices"
+            "Reinforced previously studied concepts"
+          )
+
+          ACHIEVEMENTS=(
+            "Strong focus session"
+            "Good retention of concepts"
+            "Progress felt steady"
+            "Built on previous knowledge"
+            "Improved confidence in topic"
+          )
+
+          TASK=${TASKS[$RANDOM % ${#TASKS[@]}]}
+          RESULT=${ACHIEVEMENTS[$RANDOM % ${#ACHIEVEMENTS[@]}]}
+
+          ENTRY="## $DATE\n- $TASK\n- $RESULT\n\n"
+
+          echo -e "$ENTRY" >> README.md
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "Daily activity update: $DATE"
+          git push

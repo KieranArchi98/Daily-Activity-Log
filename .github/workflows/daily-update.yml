@@ -60,4 +60,3 @@ EOF
           git add README.md state.json
           git commit -m "Daily activity update: $DATE" || exit 0
           git push
-

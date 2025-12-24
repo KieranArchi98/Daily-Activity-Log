@@ -1,0 +1,24 @@
+{
+  "projects": [
+    "NetDoctor network diagnostics toolkit",
+    "PowerShell SysAdmin utilities",
+    "Python automation scripts",
+    "GitHub Actions automation workflows",
+    "Azure lab environment with AD and DNS"
+  ],
+  "learning": [
+    "CompTIA Network+ concepts",
+    "CCNA routing and switching fundamentals",
+    "Azure administration topics",
+    "Linux system internals",
+    "Python design patterns",
+    "Networking troubleshooting methodologies"
+  ],
+  "skills": [
+    "scripting",
+    "network troubleshooting",
+    "cloud infrastructure",
+    "automation design",
+    "technical documentation"
+  ]
+}

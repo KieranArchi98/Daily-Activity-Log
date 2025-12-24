@@ -1,51 +1,63 @@
-name: Daily Automated Activity
+name: Daily Automated Activity Log
 
 on:
   schedule:
-    - cron: '0 12 * * *'
+    - cron: '0 12 * * *'   # Daily at 12:00 UTC
   workflow_dispatch:
 
 jobs:
-  generate-content:
+  generate-daily-log:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate daily content
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Generate realistic daily content
         run: |
           DATE=$(date '+%Y-%m-%d')
 
-          TASKS=(
-            "Reviewed networking fundamentals and subnetting logic"
-            "Worked through Python automation patterns"
-            "Improved understanding of cloud infrastructure design"
-            "Practiced PowerShell scripting concepts"
-            "Reviewed system diagnostics and monitoring techniques"
-            "Read technical documentation and best practices"
-            "Reinforced previously studied concepts"
-          )
+          DAY=$(jq '.day' state.json)
+          SESSIONS=$(jq '.sessions_completed' state.json)
+          CONCEPTS=$(jq '.concepts_reviewed' state.json)
 
-          ACHIEVEMENTS=(
-            "Strong focus session"
-            "Good retention of concepts"
-            "Progress felt steady"
-            "Built on previous knowledge"
-            "Improved confidence in topic"
-          )
+          PROJECT=$(jq -r '.projects | .[rand() % length]' topics.json)
+          LEARNING=$(jq -r '.learning | .[rand() % length]' topics.json)
+          SKILL=$(jq -r '.skills | .[rand() % length]' topics.json)
 
-          TASK=${TASKS[$RANDOM % ${#TASKS[@]}]}
-          RESULT=${ACHIEVEMENTS[$RANDOM % ${#ACHIEVEMENTS[@]}]}
+          TODAY_SESSIONS=$((RANDOM % 3 + 1))
+          TODAY_CONCEPTS=$((RANDOM % 5 + 2))
 
-          ENTRY="## $DATE\n- $TASK\n- $RESULT\n\n"
+          TOTAL_SESSIONS=$((SESSIONS + TODAY_SESSIONS))
+          TOTAL_CONCEPTS=$((CONCEPTS + TODAY_CONCEPTS))
+          NEW_DAY=$((DAY + 1))
+
+          ENTRY="## $DATE
+- Continued work on **$PROJECT**
+- Focused study on **$LEARNING**
+- Strengthened **$SKILL** through hands-on practice
+- Study sessions today: $TODAY_SESSIONS
+- Total sessions completed: $TOTAL_SESSIONS
+- Total concepts reviewed: $TOTAL_CONCEPTS
+
+"
 
           echo -e "$ENTRY" >> README.md
+
+          jq \
+            --argjson day "$NEW_DAY" \
+            --argjson sessions "$TOTAL_SESSIONS" \
+            --argjson concepts "$TOTAL_CONCEPTS" \
+            '.day=$day | .sessions_completed=$sessions | .concepts_reviewed=$concepts' \
+            state.json > state.tmp && mv state.tmp state.json
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
+          git add README.md state.json
           git commit -m "Daily activity update: $DATE"
           git push

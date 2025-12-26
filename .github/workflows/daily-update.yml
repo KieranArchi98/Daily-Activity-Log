@@ -19,31 +19,53 @@ jobs:
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Generate realistic daily content
+      - name: Generate daily content (manual override supported)
         run: |
           DATE=$(date '+%Y-%m-%d')
+
           DAY=$(jq '.day' state.json)
-          SESSIONS=$(jq '.sessions_completed' state.json)
-          CONCEPTS=$(jq '.concepts_reviewed' state.json)
+          TOTAL_SESSIONS=$(jq '.sessions_completed' state.json)
+          TOTAL_CONCEPTS=$(jq '.concepts_reviewed' state.json)
 
-          PROJECT=$(jq -r '.projects[]' topics.json | shuf -n 1)
-          LEARNING=$(jq -r '.learning[]' topics.json | shuf -n 1)
-          SKILL=$(jq -r '.skills[]' topics.json | shuf -n 1)
+          TODAY_PROJECT=$(jq -r '.today.project' state.json)
+          TODAY_LEARNING=$(jq -r '.today.learning' state.json)
+          TODAY_SKILL=$(jq -r '.today.skill' state.json)
+          TODAY_SESSIONS=$(jq '.today.sessions' state.json)
+          TODAY_CONCEPTS=$(jq '.today.concepts' state.json)
 
-          TODAY_SESSIONS=$((RANDOM % 3 + 1))
-          TODAY_CONCEPTS=$((RANDOM % 5 + 2))
+          if [ "$TODAY_PROJECT" != "" ]; then
+            PROJECT="$TODAY_PROJECT"
+            LEARNING="$TODAY_LEARNING"
+            SKILL="$TODAY_SKILL"
+            SESSIONS="$TODAY_SESSIONS"
+            CONCEPTS="$TODAY_CONCEPTS"
+          else
+            PROJECT=$(jq -r '.projects[]' topics.json | shuf -n 1)
+            LEARNING=$(jq -r '.learning[]' topics.json | shuf -n 1)
+            SKILL=$(jq -r '.skills[]' topics.json | shuf -n 1)
+            SESSIONS=$((RANDOM % 3 + 1))
+            CONCEPTS=$((RANDOM % 5 + 2))
+          fi
 
-          TOTAL_SESSIONS=$((SESSIONS + TODAY_SESSIONS))
-          TOTAL_CONCEPTS=$((CONCEPTS + TODAY_CONCEPTS))
+          NEW_TOTAL_SESSIONS=$((TOTAL_SESSIONS + SESSIONS))
+          NEW_TOTAL_CONCEPTS=$((TOTAL_CONCEPTS + CONCEPTS))
           NEW_DAY=$((DAY + 1))
 
-          echo -e "## $DATE\n- Continued work on **$PROJECT**\n- Focused study on **$LEARNING**\n- Strengthened **$SKILL** through hands-on practice\n- Study sessions today: $TODAY_SESSIONS\n- Total sessions completed: $TOTAL_SESSIONS\n- Total concepts reviewed: $TOTAL_CONCEPTS\n" >> README.md
+          echo -e "## $DATE\nContinued work on $PROJECT\nFocused study on $LEARNING\nStrengthened $SKILL through hands-on practice\nStudy sessions today: $SESSIONS\nTotal sessions completed: $NEW_TOTAL_SESSIONS\nTotal concepts reviewed: $NEW_TOTAL_CONCEPTS\n" >> README.md
 
-          jq --argjson day "$NEW_DAY" \
-             --argjson sessions "$TOTAL_SESSIONS" \
-             --argjson concepts "$TOTAL_CONCEPTS" \
-             '.day=$day | .sessions_completed=$sessions | .concepts_reviewed=$concepts' \
-             state.json > state.tmp && mv state.tmp state.json
+          jq \
+            --argjson day "$NEW_DAY" \
+            --argjson sessions "$NEW_TOTAL_SESSIONS" \
+            --argjson concepts "$NEW_TOTAL_CONCEPTS" \
+            '.day=$day
+             | .sessions_completed=$sessions
+             | .concepts_reviewed=$concepts
+             | .today.project=""
+             | .today.learning=""
+             | .today.skill=""
+             | .today.sessions=null
+             | .today.concepts=null' \
+            state.json > state.tmp && mv state.tmp state.json
 
       - name: Commit and push changes
         run: |
@@ -52,4 +74,5 @@ jobs:
           git add README.md state.json
           git commit -m "Daily activity update: $DATE" || exit 0
           git push
+
 

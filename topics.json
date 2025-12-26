@@ -1,24 +1,39 @@
 {
   "projects": [
-    "NetDoctor network diagnostics toolkit",
-    "PowerShell SysAdmin utilities",
-    "Python automation scripts",
-    "GitHub Actions automation workflows",
-    "Azure lab environment with AD and DNS"
+    "NetDoctor Network Diagnostics Toolkit",
+    "PowerShell SysAdmin CLI Utilities",
+    "Konnect Agentic AI Dashboard",
+    "GitHub Actions Automation Workflows",
+    "Genesis AI & CI/CD",
+    "Home Lab Improvements",
+    "Enterprise Identity & Infrastructure Lab"
   ],
   "learning": [
     "CompTIA Network+ concepts",
-    "CCNA routing and switching fundamentals",
+    "CCNA fundamentals",
     "Azure administration topics",
     "Linux system internals",
     "Python design patterns",
-    "Networking troubleshooting methodologies"
+    "Networking troubleshooting methodologies",
+    "AI Research",
+    "AI and Vision Systems",
+    "AI/ML Integration",
+    "Hardware Integration and IoT Devices",
+    "CCNA Certification",
+    "Powershell scripting architectures"
   ],
   "skills": [
     "scripting",
     "network troubleshooting",
     "cloud infrastructure",
     "automation design",
-    "technical documentation"
+    "technical documentation",
+    "systems administration",
+    "leveraging ai",
+    "dev ops"
+  ],
+  "Future": [
+    "Project: AI Coach",
+    "Project: Smart Camera"
   ]
 }

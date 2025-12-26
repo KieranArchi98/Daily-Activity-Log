@@ -1,5 +1,13 @@
 {
-  "day": 1,
+  "day": 0,
   "sessions_completed": 0,
-  "concepts_reviewed": 0
+  "concepts_reviewed": 0,
+
+  "today": {
+    "project": "",
+    "learning": "",
+    "skill": "",
+    "sessions": null,
+    "concepts": null
+  }
 }

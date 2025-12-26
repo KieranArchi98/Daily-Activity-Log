@@ -20,39 +20,39 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y jq
 
       - name: Generate daily content (manual override supported)
+        shell: bash
         run: |
           DATE=$(date '+%Y-%m-%d')
 
-          # Generate or read today's entry using jq
           ENTRY=$(jq -r --arg date "$DATE" '
-            # Default random selection
+            # Function to pick random array element
             def rand_item(arr): arr[ (rand * (arr|length)) | floor ];
-            
+
+            # Ensure arrays exist
             .projects //= [] | .learning //= [] | .skills //= [];
-            
-            # Determine today's activity
+
+            # Determine today's activity (manual override if exists)
             if .today.project and .today.project != "" then
               {project: .today.project, learning: .today.learning, skill: .today.skill, sessions: (.today.sessions // 0), concepts: (.today.concepts // 0)}
             else
               {project: (.projects | rand_item), learning: (.learning | rand_item), skill: (.skills | rand_item), sessions: (1 + (rand*3 | floor)), concepts: (2 + (rand*5 | floor))}
             end as $today |
-            
-            # Calculate totals safely
+
+            # Update totals
             .day |= (. // 0) + 1 |
             .sessions_completed |= (. // 0) + $today.sessions |
             .concepts_reviewed |= (. // 0) + $today.concepts |
 
-            # Clear today for next manual override
+            # Clear today for next override
             .today.project = "" | .today.learning = "" | .today.skill = "" | .today.sessions = 0 | .today.concepts = 0 |
 
-            # Build markdown entry
+            # Build Markdown entry
             "## \($date)\nContinued work on \($today.project)\nFocused study on \($today.learning)\nStrengthened \($today.skill) through hands-on practice\nStudy sessions today: \($today.sessions)\nTotal sessions completed: \(.sessions_completed)\nTotal concepts reviewed: \(.concepts_reviewed)\n"
           ' state.json)
 
-          # Append entry to README.md
           echo -e "$ENTRY" >> README.md
 
-          # Update state.json safely in-place
+          # Update state.json in-place safely
           jq '
             .projects //= [] | .learning //= [] | .skills //= [];
             if .today.project and .today.project != "" then
@@ -68,6 +68,7 @@ jobs:
           ' state.json > state.tmp && mv state.tmp state.json
 
       - name: Commit and push changes
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

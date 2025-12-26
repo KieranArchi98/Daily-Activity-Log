@@ -23,15 +23,15 @@ jobs:
         run: |
           DATE=$(date '+%Y-%m-%d')
 
-          DAY=$(jq '.day' state.json)
-          TOTAL_SESSIONS=$(jq '.sessions_completed' state.json)
-          TOTAL_CONCEPTS=$(jq '.concepts_reviewed' state.json)
+          DAY=$(jq '.day // 0' state.json)
+          TOTAL_SESSIONS=$(jq '.sessions_completed // 0' state.json)
+          TOTAL_CONCEPTS=$(jq '.concepts_reviewed // 0' state.json)
 
-          TODAY_PROJECT=$(jq -r '.today.project' state.json)
-          TODAY_LEARNING=$(jq -r '.today.learning' state.json)
-          TODAY_SKILL=$(jq -r '.today.skill' state.json)
-          TODAY_SESSIONS=$(jq '.today.sessions' state.json)
-          TODAY_CONCEPTS=$(jq '.today.concepts' state.json)
+          TODAY_PROJECT=$(jq -r '.today.project // ""' state.json)
+          TODAY_LEARNING=$(jq -r '.today.learning // ""' state.json)
+          TODAY_SKILL=$(jq -r '.today.skill // ""' state.json)
+          TODAY_SESSIONS=$(jq '.today.sessions // 0' state.json)
+          TODAY_CONCEPTS=$(jq '.today.concepts // 0' state.json)
 
           if [ "$TODAY_PROJECT" != "" ]; then
             PROJECT="$TODAY_PROJECT"

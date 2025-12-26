@@ -23,52 +23,49 @@ jobs:
         run: |
           DATE=$(date '+%Y-%m-%d')
 
-          # Read previous totals safely as strings
-          DAY=$(jq -r '.day // 0' state.json)
-          TOTAL_SESSIONS=$(jq -r '.sessions_completed // 0' state.json)
-          TOTAL_CONCEPTS=$(jq -r '.concepts_reviewed // 0' state.json)
-          TODAY_PROJECT=$(jq -r '.today.project // ""' state.json)
-          TODAY_LEARNING=$(jq -r '.today.learning // ""' state.json)
-          TODAY_SKILL=$(jq -r '.today.skill // ""' state.json)
-          TODAY_SESSIONS=$(jq -r '.today.sessions // 0' state.json)
-          TODAY_CONCEPTS=$(jq -r '.today.concepts // 0' state.json)
+          # Generate or read today's entry using jq
+          ENTRY=$(jq -r --arg date "$DATE" '
+            # Default random selection
+            def rand_item(arr): arr[ (rand * (arr|length)) | floor ];
+            
+            .projects //= [] | .learning //= [] | .skills //= [];
+            
+            # Determine today's activity
+            if .today.project and .today.project != "" then
+              {project: .today.project, learning: .today.learning, skill: .today.skill, sessions: (.today.sessions // 0), concepts: (.today.concepts // 0)}
+            else
+              {project: (.projects | rand_item), learning: (.learning | rand_item), skill: (.skills | rand_item), sessions: (1 + (rand*3 | floor)), concepts: (2 + (rand*5 | floor))}
+            end as $today |
+            
+            # Calculate totals safely
+            .day |= (. // 0) + 1 |
+            .sessions_completed |= (. // 0) + $today.sessions |
+            .concepts_reviewed |= (. // 0) + $today.concepts |
 
-          # Default random content if manual override is empty
-          if [ -n "$TODAY_PROJECT" ]; then
-            PROJECT="$TODAY_PROJECT"
-            LEARNING="$TODAY_LEARNING"
-            SKILL="$TODAY_SKILL"
-            SESSIONS="$TODAY_SESSIONS"
-            CONCEPTS="$TODAY_CONCEPTS"
-          else
-            PROJECT=$(jq -r '.projects[]' topics.json | shuf -n 1)
-            LEARNING=$(jq -r '.learning[]' topics.json | shuf -n 1)
-            SKILL=$(jq -r '.skills[]' topics.json | shuf -n 1)
-            SESSIONS=$((RANDOM % 3 + 1))
-            CONCEPTS=$((RANDOM % 5 + 2))
-          fi
+            # Clear today for next manual override
+            .today.project = "" | .today.learning = "" | .today.skill = "" | .today.sessions = 0 | .today.concepts = 0 |
 
-          # Calculate totals safely in Bash
-          NEW_TOTAL_SESSIONS=$((TOTAL_SESSIONS + SESSIONS))
-          NEW_TOTAL_CONCEPTS=$((TOTAL_CONCEPTS + CONCEPTS))
-          NEW_DAY=$((DAY + 1))
+            # Build markdown entry
+            "## \($date)\nContinued work on \($today.project)\nFocused study on \($today.learning)\nStrengthened \($today.skill) through hands-on practice\nStudy sessions today: \($today.sessions)\nTotal sessions completed: \(.sessions_completed)\nTotal concepts reviewed: \(.concepts_reviewed)\n"
+          ' state.json)
 
-          # Append daily entry to README.md
-          echo -e "## $DATE\nContinued work on $PROJECT\nFocused study on $LEARNING\nStrengthened $SKILL through hands-on practice\nStudy sessions today: $SESSIONS\nTotal sessions completed: $NEW_TOTAL_SESSIONS\nTotal concepts reviewed: $NEW_TOTAL_CONCEPTS\n" >> README.md
+          # Append entry to README.md
+          echo -e "$ENTRY" >> README.md
 
-          # Update state.json safely using jq filter with strings
-          jq --arg day "$NEW_DAY" \
-             --arg sessions "$NEW_TOTAL_SESSIONS" \
-             --arg concepts "$NEW_TOTAL_CONCEPTS" \
-             '.day = ($day | tonumber) 
-              | .sessions_completed = ($sessions | tonumber) 
-              | .concepts_reviewed = ($concepts | tonumber)
-              | .today.project = ""
-              | .today.learning = ""
-              | .today.skill = ""
-              | .today.sessions = 0
-              | .today.concepts = 0' \
-             state.json > state.tmp && mv state.tmp state.json
+          # Update state.json safely in-place
+          jq '
+            .projects //= [] | .learning //= [] | .skills //= [];
+            if .today.project and .today.project != "" then
+              .day |= (. // 0) + 1 |
+              .sessions_completed |= (. // 0) + (.today.sessions // 0) |
+              .concepts_reviewed |= (. // 0) + (.today.concepts // 0)
+            else
+              .day |= (. // 0) + 1 |
+              .sessions_completed |= (. // 0) + (1 + (rand*3 | floor)) |
+              .concepts_reviewed |= (. // 0) + (2 + (rand*5 | floor))
+            end |
+            .today.project = "" | .today.learning = "" | .today.skill = "" | .today.sessions = 0 | .today.concepts = 0
+          ' state.json > state.tmp && mv state.tmp state.json
 
       - name: Commit and push changes
         run: |

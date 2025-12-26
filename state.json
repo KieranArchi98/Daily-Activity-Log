@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "day": 0,
   "sessions_completed": 0,
   "concepts_reviewed": 0,
@@ -10,4 +11,9 @@
     "sessions": null,
     "concepts": null
   }
+=======
+  "day": 4,
+  "sessions_completed": 5,
+  "concepts_reviewed": 12
+>>>>>>> 04d9a6a9141c0f24f3a5582faafaee30e87f3b4e
 }

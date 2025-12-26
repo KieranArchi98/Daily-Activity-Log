@@ -19,19 +19,19 @@ jobs:
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Generate daily content (manual override supported)
+            - name: Generate daily content (manual override supported)
         run: |
           DATE=$(date '+%Y-%m-%d')
 
-          DAY=$(jq '.day // 0' state.json)
-          TOTAL_SESSIONS=$(jq '.sessions_completed // 0' state.json)
-          TOTAL_CONCEPTS=$(jq '.concepts_reviewed // 0' state.json)
+          DAY=$(jq -r '.day // 0' state.json)
+          TOTAL_SESSIONS=$(jq -r '.sessions_completed // 0' state.json)
+          TOTAL_CONCEPTS=$(jq -r '.concepts_reviewed // 0' state.json)
 
           TODAY_PROJECT=$(jq -r '.today.project // ""' state.json)
           TODAY_LEARNING=$(jq -r '.today.learning // ""' state.json)
           TODAY_SKILL=$(jq -r '.today.skill // ""' state.json)
-          TODAY_SESSIONS=$(jq '.today.sessions // 0' state.json)
-          TODAY_CONCEPTS=$(jq '.today.concepts // 0' state.json)
+          TODAY_SESSIONS=$(jq -r '.today.sessions // 0' state.json)
+          TODAY_CONCEPTS=$(jq -r '.today.concepts // 0' state.json)
 
           if [ "$TODAY_PROJECT" != "" ]; then
             PROJECT="$TODAY_PROJECT"
@@ -53,19 +53,18 @@ jobs:
 
           echo -e "## $DATE\nContinued work on $PROJECT\nFocused study on $LEARNING\nStrengthened $SKILL through hands-on practice\nStudy sessions today: $SESSIONS\nTotal sessions completed: $NEW_TOTAL_SESSIONS\nTotal concepts reviewed: $NEW_TOTAL_CONCEPTS\n" >> README.md
 
-          jq \
-            --argjson day "$NEW_DAY" \
-            --argjson sessions "$NEW_TOTAL_SESSIONS" \
-            --argjson concepts "$NEW_TOTAL_CONCEPTS" \
-            '.day=$day
-             | .sessions_completed=$sessions
-             | .concepts_reviewed=$concepts
-             | .today.project=""
-             | .today.learning=""
-             | .today.skill=""
-             | .today.sessions=null
-             | .today.concepts=null' \
-            state.json > state.tmp && mv state.tmp state.json
+          jq --argjson day "$NEW_DAY" \
+             --argjson sessions "$NEW_TOTAL_SESSIONS" \
+             --argjson concepts "$NEW_TOTAL_CONCEPTS" \
+             '.day=$day
+              | .sessions_completed=$sessions
+              | .concepts_reviewed=$concepts
+              | .today.project=""
+              | .today.learning=""
+              | .today.skill=""
+              | .today.sessions=null
+              | .today.concepts=null' \
+             state.json > state.tmp && mv state.tmp state.json
 
       - name: Commit and push changes
         run: |

@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 12 * * *'
   workflow_dispatch:
-  
+
 permissions:
   contents: write
 
@@ -23,27 +23,18 @@ jobs:
         run: |
           DATE=$(date '+%Y-%m-%d')
 
-          # Read previous totals safely as integers
+          # Read previous totals safely as strings
           DAY=$(jq -r '.day // 0' state.json)
           TOTAL_SESSIONS=$(jq -r '.sessions_completed // 0' state.json)
           TOTAL_CONCEPTS=$(jq -r '.concepts_reviewed // 0' state.json)
-
-          DAY=$((DAY+0))
-          TOTAL_SESSIONS=$((TOTAL_SESSIONS+0))
-          TOTAL_CONCEPTS=$((TOTAL_CONCEPTS+0))
-
-          # Read today's manual override fields
           TODAY_PROJECT=$(jq -r '.today.project // ""' state.json)
           TODAY_LEARNING=$(jq -r '.today.learning // ""' state.json)
           TODAY_SKILL=$(jq -r '.today.skill // ""' state.json)
           TODAY_SESSIONS=$(jq -r '.today.sessions // 0' state.json)
           TODAY_CONCEPTS=$(jq -r '.today.concepts // 0' state.json)
 
-          TODAY_SESSIONS=$((TODAY_SESSIONS+0))
-          TODAY_CONCEPTS=$((TODAY_CONCEPTS+0))
-
-          # Use manual input if available, else pick random topics
-          if [ "$TODAY_PROJECT" != "" ]; then
+          # Default random content if manual override is empty
+          if [ -n "$TODAY_PROJECT" ]; then
             PROJECT="$TODAY_PROJECT"
             LEARNING="$TODAY_LEARNING"
             SKILL="$TODAY_SKILL"
@@ -57,7 +48,7 @@ jobs:
             CONCEPTS=$((RANDOM % 5 + 2))
           fi
 
-          # Compute new totals
+          # Calculate totals safely in Bash
           NEW_TOTAL_SESSIONS=$((TOTAL_SESSIONS + SESSIONS))
           NEW_TOTAL_CONCEPTS=$((TOTAL_CONCEPTS + CONCEPTS))
           NEW_DAY=$((DAY + 1))
@@ -65,18 +56,18 @@ jobs:
           # Append daily entry to README.md
           echo -e "## $DATE\nContinued work on $PROJECT\nFocused study on $LEARNING\nStrengthened $SKILL through hands-on practice\nStudy sessions today: $SESSIONS\nTotal sessions completed: $NEW_TOTAL_SESSIONS\nTotal concepts reviewed: $NEW_TOTAL_CONCEPTS\n" >> README.md
 
-          # Update state.json safely
-          jq --argjson day "$NEW_DAY" \
-             --argjson sessions "$NEW_TOTAL_SESSIONS" \
-             --argjson concepts "$NEW_TOTAL_CONCEPTS" \
-             '.day=$day
-              | .sessions_completed=$sessions
-              | .concepts_reviewed=$concepts
-              | .today.project=""
-              | .today.learning=""
-              | .today.skill=""
-              | .today.sessions=0
-              | .today.concepts=0' \
+          # Update state.json safely using jq filter with strings
+          jq --arg day "$NEW_DAY" \
+             --arg sessions "$NEW_TOTAL_SESSIONS" \
+             --arg concepts "$NEW_TOTAL_CONCEPTS" \
+             '.day = ($day | tonumber) 
+              | .sessions_completed = ($sessions | tonumber) 
+              | .concepts_reviewed = ($concepts | tonumber)
+              | .today.project = ""
+              | .today.learning = ""
+              | .today.skill = ""
+              | .today.sessions = 0
+              | .today.concepts = 0' \
              state.json > state.tmp && mv state.tmp state.json
 
       - name: Commit and push changes

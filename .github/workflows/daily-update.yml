@@ -20,6 +20,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y jq
 
       - name: Generate realistic daily content
+        shell: bash
         run: |
           DATE=$(date '+%Y-%m-%d')
           DAY=$(jq '.day' state.json)
@@ -37,8 +38,22 @@ jobs:
           TOTAL_CONCEPTS=$((CONCEPTS + TODAY_CONCEPTS))
           NEW_DAY=$((DAY + 1))
 
-          echo -e "## $DATE\n- Continued work on **$PROJECT**\n- Focused study on **$LEARNING**\n- Strengthened **$SKILL** through hands-on practice\n- Study sessions today: $TODAY_SESSIONS\n- Total sessions completed: $TOTAL_SESSIONS\n- Total concepts reviewed: $TOTAL_CONCEPTS\n" >> README.md
+          # Build new entry using the same - line format
+          NEW_ENTRY="## $DATE
+          - Continued work on **$PROJECT**
+          - Focused study on **$LEARNING**
+          - Strengthened **$SKILL** through hands-on practice
+          - Study sessions today: $TODAY_SESSIONS
+          - Total sessions completed: $TOTAL_SESSIONS
+          - Total concepts reviewed: $TOTAL_CONCEPTS
+          "
 
+          # Prepend entry below the introduction (first 3 lines)
+          HEAD=$(head -n 3 README.md)
+          TAIL=$(tail -n +4 README.md)
+          echo -e "$HEAD\n\n$NEW_ENTRY$TAIL" > README.md
+
+          # Update state.json
           jq --argjson day "$NEW_DAY" \
              --argjson sessions "$TOTAL_SESSIONS" \
              --argjson concepts "$TOTAL_CONCEPTS" \
@@ -46,10 +61,10 @@ jobs:
              state.json > state.tmp && mv state.tmp state.json
 
       - name: Commit and push changes
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md state.json
           git commit -m "Daily activity update: $DATE" || exit 0
           git push
-

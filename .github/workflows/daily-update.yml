@@ -19,7 +19,7 @@ jobs:
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Generate realistic daily content
+      - name: Generate daily content (supports optional manual input)
         shell: bash
         run: |
           DATE=$(date '+%Y-%m-%d')
@@ -27,18 +27,33 @@ jobs:
           SESSIONS=$(jq '.sessions_completed' state.json)
           CONCEPTS=$(jq '.concepts_reviewed' state.json)
 
-          PROJECT=$(jq -r '.projects[]' topics.json | shuf -n 1)
-          LEARNING=$(jq -r '.learning[]' topics.json | shuf -n 1)
-          SKILL=$(jq -r '.skills[]' topics.json | shuf -n 1)
+          # Read today's manual override if present
+          TODAY_PROJECT=$(jq -r '.today.project // ""' state.json)
+          TODAY_LEARNING=$(jq -r '.today.learning // ""' state.json)
+          TODAY_SKILL=$(jq -r '.today.skill // ""' state.json)
+          TODAY_SESSIONS=$(jq -r '.today.sessions // 0' state.json)
+          TODAY_CONCEPTS=$(jq -r '.today.concepts // 0' state.json)
 
-          TODAY_SESSIONS=$((RANDOM % 3 + 1))
-          TODAY_CONCEPTS=$((RANDOM % 5 + 2))
+          # Use manual input if available, otherwise random selection
+          if [ -n "$TODAY_PROJECT" ]; then
+            PROJECT="$TODAY_PROJECT"
+            LEARNING="$TODAY_LEARNING"
+            SKILL="$TODAY_SKILL"
+            TODAY_SESSIONS=$TODAY_SESSIONS
+            TODAY_CONCEPTS=$TODAY_CONCEPTS
+          else
+            PROJECT=$(jq -r '.projects[]' topics.json | shuf -n 1)
+            LEARNING=$(jq -r '.learning[]' topics.json | shuf -n 1)
+            SKILL=$(jq -r '.skills[]' topics.json | shuf -n 1)
+            TODAY_SESSIONS=$((RANDOM % 3 + 1))
+            TODAY_CONCEPTS=$((RANDOM % 5 + 2))
+          fi
 
           TOTAL_SESSIONS=$((SESSIONS + TODAY_SESSIONS))
           TOTAL_CONCEPTS=$((CONCEPTS + TODAY_CONCEPTS))
           NEW_DAY=$((DAY + 1))
 
-          # Build new entry using the same - line format
+          # Build new entry with - lines
           NEW_ENTRY="## $DATE
           - Continued work on **$PROJECT**
           - Focused study on **$LEARNING**
@@ -53,11 +68,18 @@ jobs:
           TAIL=$(tail -n +4 README.md)
           echo -e "$HEAD\n\n$NEW_ENTRY$TAIL" > README.md
 
-          # Update state.json
+          # Update state.json with totals and clear 'today' for next manual entry
           jq --argjson day "$NEW_DAY" \
              --argjson sessions "$TOTAL_SESSIONS" \
              --argjson concepts "$TOTAL_CONCEPTS" \
-             '.day=$day | .sessions_completed=$sessions | .concepts_reviewed=$concepts' \
+             '.day=$day
+              | .sessions_completed=$sessions
+              | .concepts_reviewed=$concepts
+              | .today.project=""
+              | .today.learning=""
+              | .today.skill=""
+              | .today.sessions=0
+              | .today.concepts=0' \
              state.json > state.tmp && mv state.tmp state.json
 
       - name: Commit and push changes

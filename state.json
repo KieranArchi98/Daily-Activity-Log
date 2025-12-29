@@ -1,12 +1,12 @@
 {
-  "day": 4,
-  "sessions_completed": 2,
-  "concepts_reviewed": 3,
+  "day": 5,
+  "sessions_completed": 4,
+  "concepts_reviewed": 7,
   "today": {
-    "project": "Portfolio Website",
-    "learning": "frontend design philosophy",
-    "skill": "web development",
-    "sessions": 2,
-    "concepts": 4
+    "project": "",
+    "learning": "",
+    "skill": "",
+    "sessions": 0,
+    "concepts": 0
   }
 }

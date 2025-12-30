@@ -3,10 +3,10 @@
   "sessions_completed": 4,
   "concepts_reviewed": 7,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "Genesis AI",
+    "learning": "DevOps & CI/CD",
+    "skill": "software development",
+    "sessions": 3,
+    "concepts": 2
   }
 }

@@ -1,12 +1,12 @@
 {
   "day": 8,
-  "sessions_completed": 9,
-  "concepts_reviewed": 16,
+  "sessions_completed": 2,
+  "concepts_reviewed": 2,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "Portfolio Website",
+    "learning": "CCNA Studying",
+    "skill": "frontend ux design",
+    "sessions": 2,
+    "concepts": 4
   }
 }

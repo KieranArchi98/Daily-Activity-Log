@@ -3,10 +3,10 @@
   "sessions_completed": 4,
   "concepts_reviewed": 6,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "Cisco Packet Tracer Network",
+    "learning": "CCNA Switches & Networking",
+    "skill": "design & architecture",
+    "sessions": 2,
+    "concepts": 4
   }
 }

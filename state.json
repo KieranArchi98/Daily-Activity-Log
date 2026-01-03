@@ -3,10 +3,10 @@
   "sessions_completed": 6,
   "concepts_reviewed": 10,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "Website Development",
+    "learning": "Switches & Routing Protocols",
+    "skill": "Tech Support",
+    "sessions": 2,
+    "concepts": 5
   }
 }

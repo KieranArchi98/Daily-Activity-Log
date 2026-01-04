@@ -3,10 +3,10 @@
   "sessions_completed": 8,
   "concepts_reviewed": 15,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "Portfolio Frontend",
+    "learning": "STP & RSTP",
+    "skill": "reading and stuff",
+    "sessions": 2,
+    "concepts": 2
   }
 }

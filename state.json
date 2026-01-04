@@ -1,12 +1,12 @@
 {
-  "day": 10,
-  "sessions_completed": 6,
-  "concepts_reviewed": 10,
+  "day": 11,
+  "sessions_completed": 8,
+  "concepts_reviewed": 15,
   "today": {
-    "project": "Website Development",
-    "learning": "Switches & Routing Protocols",
-    "skill": "Networking",
-    "sessions": 2,
-    "concepts": 5
+    "project": "",
+    "learning": "",
+    "skill": "",
+    "sessions": 0,
+    "concepts": 0
   }
 }

@@ -1,12 +1,12 @@
 {
-  "day": 11,
-  "sessions_completed": 8,
-  "concepts_reviewed": 15,
+  "day": 12,
+  "sessions_completed": 10,
+  "concepts_reviewed": 17,
   "today": {
-    "project": "Portfolio Frontend",
-    "learning": "STP & RSTP",
-    "skill": "reading and stuff",
-    "sessions": 2,
-    "concepts": 2
+    "project": "",
+    "learning": "",
+    "skill": "",
+    "sessions": 0,
+    "concepts": 0
   }
 }

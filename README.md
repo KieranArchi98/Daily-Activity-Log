@@ -2,6 +2,14 @@
 
 This repository is automatically updated every day.
 
+## 2026-01-05
+- Continued work on **Portfolio Frontend**
+- Focused study on **STP & RSTP**
+- Strengthened **reading and stuff** through hands-on practice
+- Study sessions today: 2
+- Total sessions completed: 10
+- Total concepts reviewed: 17
+
 ## 2026-01-04
 - Continued work on **Website Development**
 - Focused study on **Switches & Routing Protocols**

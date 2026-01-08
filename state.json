@@ -1,12 +1,12 @@
 {
-  "day": 14,
-  "sessions_completed": 14,
-  "concepts_reviewed": 23,
+  "day": 15,
+  "sessions_completed": 16,
+  "concepts_reviewed": 27,
   "today": {
-    "project": "Portfolio Website Frontend",
-    "learning": "Azure & AD DC",
-    "skill": "Systems Administration",
-    "sessions": 2,
-    "concepts": 4
+    "project": "",
+    "learning": "",
+    "skill": "",
+    "sessions": 0,
+    "concepts": 0
   }
 }

@@ -3,9 +3,9 @@
   "sessions_completed": 19,
   "concepts_reviewed": 30,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
+    "project": "Genesis AI",
+    "learning": "Docker, Kubernetes, and GitHub Actions",
+    "skill": "DevOps & CI/CD",
     "sessions": 0,
     "concepts": 0
   }

@@ -1,11 +1,11 @@
 {
-  "day": 16,
+  "day": 17,
   "sessions_completed": 19,
   "concepts_reviewed": 30,
   "today": {
-    "project": "Genesis AI",
-    "learning": "Docker, Kubernetes, and GitHub Actions",
-    "skill": "DevOps & CI/CD",
+    "project": "",
+    "learning": "",
+    "skill": "",
     "sessions": 0,
     "concepts": 0
   }

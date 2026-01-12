@@ -1,11 +1,11 @@
 {
-  "day": 18,
+  "day": 19,
   "sessions_completed": 21,
   "concepts_reviewed": 36,
   "today": {
-    "project": "n/a",
-    "learning": "n/a",
-    "skill": "n/a",
+    "project": "",
+    "learning": "",
+    "skill": "",
     "sessions": 0,
     "concepts": 0
   }

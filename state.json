@@ -3,10 +3,10 @@
   "sessions_completed": 21,
   "concepts_reviewed": 36,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "AD DC Network",
+    "learning": "SysAdmin Role",
+    "skill": "systems administration",
+    "sessions": 1,
+    "concepts": 1
   }
 }

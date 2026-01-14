@@ -3,10 +3,10 @@
   "sessions_completed": 25,
   "concepts_reviewed": 39,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "AD DC Corporate Network",
+    "learning": "Architecture, Processes, and Job Role",
+    "skill": "systems administration",
+    "sessions": 1,
+    "concepts": 1
   }
 }

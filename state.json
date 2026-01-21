@@ -1,12 +1,12 @@
 {
-  "day": 27,
-  "sessions_completed": 40,
-  "concepts_reviewed": 67,
+  "day": 28,
+  "sessions_completed": 41,
+  "concepts_reviewed": 68,
   "today": {
-    "project": "AD DC Project",
-    "learning": "Azure",
-    "skill": "system administration",
-    "sessions": 1,
-    "concepts": 1
+    "project": "",
+    "learning": "",
+    "skill": "",
+    "sessions": 0,
+    "concepts": 0
   }
 }

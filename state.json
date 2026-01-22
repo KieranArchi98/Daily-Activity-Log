@@ -3,10 +3,10 @@
   "sessions_completed": 43,
   "concepts_reviewed": 73,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "Packet Tracer Corporate Network",
+    "learning": "Network Architecture",
+    "skill": "troubleshooting until I cry",
+    "sessions": 2,
+    "concepts": 1
   }
 }

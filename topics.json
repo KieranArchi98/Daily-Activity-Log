@@ -6,21 +6,25 @@
     "GitHub Actions Automation Workflows",
     "Genesis AI & CI/CD",
     "Home Lab Improvements",
-    "Enterprise Identity & Infrastructure Lab"
+    "Enterprise Identity & Infrastructure Lab",
+    "Cisco Packet Tracer Network"
+    "Debbie AI System Administrator"
   ],
   "learning": [
-    "CompTIA Network+ concepts",
-    "CCNA fundamentals",
+    "Active Directory network architecture",
     "Azure administration topics",
     "Linux system internals",
     "Python design patterns",
     "Networking troubleshooting methodologies",
     "AI Research",
+    "AI Workflows",
+    "Agentic AI",
     "AI and Vision Systems",
     "AI/ML Integration",
     "Hardware Integration and IoT Devices",
     "CCNA Certification",
     "Powershell scripting architectures"
+    "Devops & CI/CD Pipelines"
   ],
   "skills": [
     "scripting",
@@ -32,8 +36,14 @@
     "leveraging ai",
     "dev ops"
   ],
-  "Future": [
-    "Project: AI Coach",
-    "Project: Smart Camera"
+  "Future Ideas/Brainstorming": [
+    "Project Idea: LLM Ecology Guessing Game",
+    "Project Idea: AI Model That Plays Games - cs, val, etc",
+    "Project Idea: AI Coach",
+    "Project Idea: Smart Camera",
+    "Project Idea: IoT Smart Device",
+    "Project Idea: Big Brother Setup",
+    "Project Idea: Alchemy",
+    "Project Idea: Mobile App"
   ]
 }

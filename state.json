@@ -1,11 +1,11 @@
 {
-  "day": 2,
-  "sessions_completed": 2,
-  "concepts_reviewed": 3,
+  "day": 30,
+  "sessions_completed": 45,
+  "concepts_reviewed": 74,
   "today": {
-    "project": "Github Automation",
-    "learning": "CCNA Certification",
-    "skill": "AntiGravity IDE Practice",
+    "project": "GitHub Repo Refactor/Documentation",
+    "learning": "n/a",
+    "skill": "n/a",
     "sessions": 0,
     "concepts": 0
   }

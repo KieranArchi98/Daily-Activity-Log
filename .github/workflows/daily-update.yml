@@ -22,6 +22,22 @@ jobs:
       - name: Generate daily content (supports optional manual input)
         shell: bash
         run: |
+          # Ensure state.json exists and is valid, otherwise create default
+          jq empty state.json 2>/dev/null || cat > state.json <<-'EOF'
+          {
+            "day": 0,
+            "sessions_completed": 0,
+            "concepts_reviewed": 0,
+            "today": {
+              "project": "",
+              "learning": "",
+              "skill": "",
+              "sessions": 0,
+              "concepts": 0
+            }
+          }
+          EOF
+
           DATE=$(date '+%Y-%m-%d')
           DAY=$(jq '.day' state.json)
           SESSIONS=$(jq '.sessions_completed' state.json)

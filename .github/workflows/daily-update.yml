@@ -22,21 +22,22 @@ jobs:
       - name: Generate daily content (supports optional manual input)
         shell: bash
         run: |
-          # Ensure state.json exists and is valid, otherwise create default
-          jq empty state.json 2>/dev/null || cat > state.json <<-'EOF'
-          {
-            "day": 0,
-            "sessions_completed": 0,
-            "concepts_reviewed": 0,
-            "today": {
-              "project": "",
-              "learning": "",
-              "skill": "",
-              "sessions": 0,
-              "concepts": 0
-            }
-          }
-          EOF
+          jq --argjson day "$NEW_DAY" \
+            --argjson sessions "$TOTAL_SESSIONS" \
+            --argjson concepts "$TOTAL_CONCEPTS" \
+            --arg project "" \
+            --arg learning "" \
+            --arg skill "" \
+            '.day=$day
+              | .sessions_completed=$sessions
+              | .concepts_reviewed=$concepts
+              | .today.project=$project
+              | .today.learning=$learning
+              | .today.skill=$skill
+              | .today.sessions=0
+              | .today.concepts=0' \
+            state.json > state.tmp && mv state.tmp state.json
+
 
           DATE=$(date '+%Y-%m-%d')
           DAY=$(jq '.day' state.json)

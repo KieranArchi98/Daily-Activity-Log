@@ -1,11 +1,11 @@
 {
-  "day": 31,
+  "day": 32,
   "sessions_completed": 45,
   "concepts_reviewed": 74,
   "today": {
-    "project": "Ecology Guessr App",
-    "learning": "azure fundamentals",
-    "skill": "system administration",
+    "project": "",
+    "learning": "",
+    "skill": "",
     "sessions": 0,
     "concepts": 0
   }

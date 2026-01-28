@@ -3,10 +3,10 @@
   "sessions_completed": 51,
   "concepts_reviewed": 82,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "Ecology Guessr Game",
+    "learning": "react-native concepts",
+    "skill": "software development",
+    "sessions": 1,
+    "concepts": 1
   }
 }

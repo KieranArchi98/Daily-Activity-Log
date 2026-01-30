@@ -1,12 +1,12 @@
 {
-  "day": 35,
-  "sessions_completed": 52,
-  "concepts_reviewed": 83,
+  "day": 36,
+  "sessions_completed": 53,
+  "concepts_reviewed": 84,
   "today": {
-    "project": "Ecology Guessr",
-    "learning": "mobile app deployment",
+    "project": "",
+    "learning": "",
     "skill": "",
-    "sessions": 1,
-    "concepts": 1
+    "sessions": 0,
+    "concepts": 0
   }
 }

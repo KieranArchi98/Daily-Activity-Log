@@ -3,10 +3,10 @@
   "sessions_completed": 54,
   "concepts_reviewed": 86,
   "today": {
-    "project": "",
-    "learning": "",
+    "project": "Langgraph Agentic Workflow",
+    "learning": "DAG, MCPs, & Agentic AI",
     "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "sessions": 1,
+    "concepts": 1
   }
 }

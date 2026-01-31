@@ -1,12 +1,12 @@
 {
-  "day": 36,
-  "sessions_completed": 53,
-  "concepts_reviewed": 84,
+  "day": 37,
+  "sessions_completed": 54,
+  "concepts_reviewed": 86,
   "today": {
-    "project": "Packet Tracer & AD DC Corporate Network",
-    "learning": "network engineering & systems administration",
-    "skill": "networking",
-    "sessions": 1,
-    "concepts": 2
+    "project": "",
+    "learning": "",
+    "skill": "",
+    "sessions": 0,
+    "concepts": 0
   }
 }

@@ -2,6 +2,14 @@
 
 This repository is automatically updated every day.
 
+## 2026-02-01
+- Continued work on **Langgraph Agentic Workflow**
+- Focused study on **DAG, MCPs, & Agentic AI**
+- Strengthened **** through hands-on practice
+- Study sessions today: 1
+- Total sessions completed: 55
+- Total concepts reviewed: 87
+
 ## 2026-01-31
 - Continued work on **Packet Tracer & AD DC Corporate Network**
 - Focused study on **network engineering & systems administration**

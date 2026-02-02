@@ -2,6 +2,14 @@
 
 This repository is automatically updated every day.
 
+## 2026-02-02
+- Continued work on **Agentic Dashboard**
+- Focused study on **RAG, DAG, Langgraph, MCPs**
+- Strengthened **agentic ai** through hands-on practice
+- Study sessions today: 1
+- Total sessions completed: 56
+- Total concepts reviewed: 88
+
 ## 2026-02-01
 - Continued work on **Langgraph Agentic Workflow**
 - Focused study on **DAG, MCPs, & Agentic AI**

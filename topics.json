@@ -8,7 +8,7 @@
     "Home Lab Improvements",
     "Enterprise Identity & Infrastructure Lab",
     "Cisco Packet Tracer Network",
-    "Debbie AI System Administrator"
+    "AI System Administrator"
   ],
   "learning": [
     "Active Directory network architecture",
@@ -43,7 +43,14 @@
     "Project Idea: Smart Camera",
     "Project Idea: IoT Smart Device",
     "Project Idea: Big Brother Setup",
-    "Project Idea: Alchemy",
-    "Project Idea: Mobile App"
+    "Project Idea: Alchemy - idea to mvp",
+    "Project Idea: AI Running Companion",
+    "Project Idea: Advanced Packet Tracer",
+    "Project Idea: Advanced Corporate Network",
+    "Project Idea: Advanced Devops & CI/CD",
+    "Project Idea: Personal/Company AI",
+    "Project Idea: Data Engineering Pipeline",
+    "Project Idea: Search - smart recommendation system",
+    "Project Idea: Fantasy Wikipedia Procedural Generator",
   ]
 }

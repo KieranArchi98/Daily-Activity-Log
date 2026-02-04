@@ -1,12 +1,12 @@
 {
-  "day": 39,
-  "sessions_completed": 56,
-  "concepts_reviewed": 88,
+  "day": 40,
+  "sessions_completed": 57,
+  "concepts_reviewed": 89,
   "today": {
-    "project": "Alchemy: Idea To MVP",
-    "learning": "AI Software Development Tool",
-    "skill": "software development",
-    "sessions": 1,
-    "concepts": 1
+    "project": "",
+    "learning": "",
+    "skill": "",
+    "sessions": 0,
+    "concepts": 0
   }
 }

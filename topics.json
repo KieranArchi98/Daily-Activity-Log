@@ -8,13 +8,14 @@
     "Advanced Packet Tracer Network",
     "AI System Administrator",
     "Alchemy",
-    "Ecology Guessr"
+    "Ecology Guessr",
   ],
   "learning": [
     "Active Directory network architecture",
     "Azure administration topics",
     "Linux system internals",
     "Python design patterns",
+    "React/Next/Vue",
     "Networking troubleshooting methodologies",
     "AI Research",
     "AI Workflows",
@@ -22,9 +23,11 @@
     "AI and Vision Systems",
     "AI/ML Integration",
     "Hardware Integration and IoT Devices",
-    "CCNA Certification",
-    "Powershell scripting architectures",
-    "Devops & CI/CD Pipelines"
+    "AZ-104",
+    "Powershell scripting & automation",
+    "Devops & CI/CD Pipelines",
+    "Zapier",
+    "LangChain/LangGraph",
   ],
   "skills": [
     "scripting",
@@ -34,7 +37,7 @@
     "technical documentation",
     "systems administration",
     "leveraging ai",
-    "dev ops"
+    "dev ops",
   ],
   "Future Ideas/Brainstorming": [
     "Project Idea: LLM Ecology Guessing Game",

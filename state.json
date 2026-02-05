@@ -1,12 +1,12 @@
 {
-  "day": 40,
-  "sessions_completed": 57,
-  "concepts_reviewed": 89,
+  "day": 41,
+  "sessions_completed": 58,
+  "concepts_reviewed": 90,
   "today": {
-    "project": "DevOps & CI/CD",
-    "learning": "Terraform",
-    "skill": "devops",
-    "sessions": 1,
-    "concepts": 1
+    "project": "",
+    "learning": "",
+    "skill": "",
+    "sessions": 0,
+    "concepts": 0
   }
 }

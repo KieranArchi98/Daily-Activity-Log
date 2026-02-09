@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 12 * * *'
   workflow_dispatch:
-  
+
 permissions:
   contents: write
 
@@ -22,55 +22,69 @@ jobs:
       - name: Generate daily content (supports optional manual input)
         shell: bash
         run: |
-          jq --argjson day "$NEW_DAY" \
-            --argjson sessions "$TOTAL_SESSIONS" \
-            --argjson concepts "$TOTAL_CONCEPTS" \
-            --arg project "" \
-            --arg learning "" \
-            --arg skill "" \
-            '.day=$day
-              | .sessions_completed=$sessions
-              | .concepts_reviewed=$concepts
-              | .today.project=$project
-              | .today.learning=$learning
-              | .today.skill=$skill
-              | .today.sessions=0
-              | .today.concepts=0' \
-            state.json > state.tmp && mv state.tmp state.json
+          set -euo pipefail
 
+          # --------------------------------------------------
+          # Bootstrap state.json if missing or empty
+          # --------------------------------------------------
+          if [ ! -s state.json ]; then
+            cat <<'EOF' > state.json
+          {
+            "day": 0,
+            "sessions_completed": 0,
+            "concepts_reviewed": 0,
+            "today": {
+              "project": "",
+              "learning": "",
+              "skill": "",
+              "sessions": 0,
+              "concepts": 0
+            }
+          }
+          EOF
+          fi
 
+          # --------------------------------------------------
+          # Read current state
+          # --------------------------------------------------
           DATE=$(date '+%Y-%m-%d')
+
           DAY=$(jq '.day' state.json)
           SESSIONS=$(jq '.sessions_completed' state.json)
           CONCEPTS=$(jq '.concepts_reviewed' state.json)
 
-          # Read today's manual override if present
           TODAY_PROJECT=$(jq -r '.today.project // ""' state.json)
           TODAY_LEARNING=$(jq -r '.today.learning // ""' state.json)
           TODAY_SKILL=$(jq -r '.today.skill // ""' state.json)
           TODAY_SESSIONS=$(jq -r '.today.sessions // 0' state.json)
           TODAY_CONCEPTS=$(jq -r '.today.concepts // 0' state.json)
 
-          # Use manual input if available, otherwise random selection
+          # --------------------------------------------------
+          # Select content (manual override or random fallback)
+          # --------------------------------------------------
           if [ -n "$TODAY_PROJECT" ]; then
             PROJECT="$TODAY_PROJECT"
             LEARNING="$TODAY_LEARNING"
             SKILL="$TODAY_SKILL"
-            TODAY_SESSIONS=$TODAY_SESSIONS
-            TODAY_CONCEPTS=$TODAY_CONCEPTS
           else
             PROJECT=$(jq -r '.projects[]' topics.json | shuf -n 1)
             LEARNING=$(jq -r '.learning[]' topics.json | shuf -n 1)
             SKILL=$(jq -r '.skills[]' topics.json | shuf -n 1)
+
             TODAY_SESSIONS=$((RANDOM % 3 + 1))
             TODAY_CONCEPTS=$((RANDOM % 5 + 2))
           fi
 
+          # --------------------------------------------------
+          # Calculate new totals
+          # --------------------------------------------------
           TOTAL_SESSIONS=$((SESSIONS + TODAY_SESSIONS))
           TOTAL_CONCEPTS=$((CONCEPTS + TODAY_CONCEPTS))
           NEW_DAY=$((DAY + 1))
 
-          # Build new entry with - lines
+          # --------------------------------------------------
+          # Build README entry
+          # --------------------------------------------------
           NEW_ENTRY="## $DATE
           - Continued work on **$PROJECT**
           - Focused study on **$LEARNING**
@@ -80,12 +94,13 @@ jobs:
           - Total concepts reviewed: $TOTAL_CONCEPTS
           "
 
-          # Prepend entry below the introduction (first 3 lines)
           HEAD=$(head -n 3 README.md)
           TAIL=$(tail -n +4 README.md)
           echo -e "$HEAD\n\n$NEW_ENTRY$TAIL" > README.md
 
-          # Update state.json with totals and clear 'today' for next manual entry
+          # --------------------------------------------------
+          # Update state.json for next run
+          # --------------------------------------------------
           jq --argjson day "$NEW_DAY" \
              --argjson sessions "$TOTAL_SESSIONS" \
              --argjson concepts "$TOTAL_CONCEPTS" \
@@ -104,6 +119,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
           git add README.md state.json
-          git commit -m "Daily activity update: $DATE" || exit 0
+          git commit -m "Daily activity update: $(date '+%Y-%m-%d')" || exit 0
           git push

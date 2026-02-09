@@ -1,20 +1,21 @@
 {
   "projects": [
-    "NetDoctor Network Diagnostics Toolkit",
-    "PowerShell SysAdmin CLI Utilities",
     "Konnect Agentic AI Dashboard",
     "GitHub Actions Automation Workflows",
     "Genesis AI & CI/CD",
     "Home Lab Improvements",
-    "Enterprise Identity & Infrastructure Lab",
-    "Cisco Packet Tracer Network",
-    "Debbie AI System Administrator"
+    "Advanced AD DC Corporate Network",
+    "Advanced Packet Tracer Network",
+    "AI System Administrator",
+    "Alchemy",
+    "Ecology Guessr",
   ],
   "learning": [
     "Active Directory network architecture",
     "Azure administration topics",
     "Linux system internals",
     "Python design patterns",
+    "React/Next/Vue",
     "Networking troubleshooting methodologies",
     "AI Research",
     "AI Workflows",
@@ -22,9 +23,11 @@
     "AI and Vision Systems",
     "AI/ML Integration",
     "Hardware Integration and IoT Devices",
-    "CCNA Certification",
-    "Powershell scripting architectures",
-    "Devops & CI/CD Pipelines"
+    "AZ-104",
+    "Powershell scripting & automation",
+    "Devops & CI/CD Pipelines",
+    "Zapier",
+    "LangChain/LangGraph",
   ],
   "skills": [
     "scripting",
@@ -34,7 +37,7 @@
     "technical documentation",
     "systems administration",
     "leveraging ai",
-    "dev ops"
+    "dev ops",
   ],
   "Future Ideas/Brainstorming": [
     "Project Idea: LLM Ecology Guessing Game",
@@ -43,7 +46,13 @@
     "Project Idea: Smart Camera",
     "Project Idea: IoT Smart Device",
     "Project Idea: Big Brother Setup",
-    "Project Idea: Alchemy",
-    "Project Idea: Mobile App"
+    "Project Idea: AI Running Companion",
+    "Project Idea: Advanced Packet Tracer",
+    "Project Idea: Advanced Corporate Network",
+    "Project Idea: Advanced Devops & CI/CD",
+    "Project Idea: Personal/Company AI",
+    "Project Idea: Data Engineering Pipeline",
+    "Project Idea: Search - smart recommendation system",
+    "Project Idea: Fantasy Wikipedia Procedural Generator",
   ]
 }

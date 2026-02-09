@@ -25,10 +25,10 @@ jobs:
           set -euo pipefail
 
           # --------------------------------------------------
-          # Bootstrap state.json if missing or empty
+          # Bootstrap state.json if missing, empty, or invalid
           # --------------------------------------------------
-          if [ ! -s state.json ]; then
-            cat <<'EOF' > state.json
+          if ! jq empty state.json >/dev/null 2>&1; then
+            cat > state.json <<'EOF'
           {
             "day": 0,
             "sessions_completed": 0,
@@ -45,7 +45,7 @@ jobs:
           fi
 
           # --------------------------------------------------
-          # Read current state
+          # Read current state (guaranteed valid JSON)
           # --------------------------------------------------
           DATE=$(date '+%Y-%m-%d')
 
@@ -96,23 +96,29 @@ jobs:
 
           HEAD=$(head -n 3 README.md)
           TAIL=$(tail -n +4 README.md)
-          echo -e "$HEAD\n\n$NEW_ENTRY$TAIL" > README.md
+          printf "%s\n\n%s%s" "$HEAD" "$NEW_ENTRY" "$TAIL" > README.md
 
           # --------------------------------------------------
-          # Update state.json for next run
+          # Update state.json for next run (atomic + safe)
           # --------------------------------------------------
-          jq --argjson day "$NEW_DAY" \
-             --argjson sessions "$TOTAL_SESSIONS" \
-             --argjson concepts "$TOTAL_CONCEPTS" \
-             '.day=$day
-              | .sessions_completed=$sessions
-              | .concepts_reviewed=$concepts
-              | .today.project=""
-              | .today.learning=""
-              | .today.skill=""
-              | .today.sessions=0
-              | .today.concepts=0' \
-             state.json > state.tmp && mv state.tmp state.json
+          jq \
+            --argjson day "$NEW_DAY" \
+            --argjson sessions "$TOTAL_SESSIONS" \
+            --argjson concepts "$TOTAL_CONCEPTS" \
+            '
+            .day = $day
+            | .sessions_completed = $sessions
+            | .concepts_reviewed = $concepts
+            | .today = {
+                project: "",
+                learning: "",
+                skill: "",
+                sessions: 0,
+                concepts: 0
+              }
+            ' state.json > state.tmp
+
+          mv state.tmp state.json
 
       - name: Commit and push changes
         shell: bash

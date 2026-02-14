@@ -3,10 +3,10 @@
   "sessions_completed": 60,
   "concepts_reviewed": 92,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "Azure Project",
+    "learning": "Microsoft Entra ID",
+    "skill": "AZ-104/Azure",
+    "sessions": 1,
+    "concepts": 1
   }
 }

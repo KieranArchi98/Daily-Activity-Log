@@ -3,10 +3,10 @@
   "sessions_completed": 61,
   "concepts_reviewed": 93,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "Azure Environments",
+    "learning": "AZ-104",
+    "skill": "Azure Cloud",
+    "sessions": 1,
+    "concepts": 1
   }
 }

@@ -1,12 +1,12 @@
 {
-  "day": 44,
-  "sessions_completed": 61,
-  "concepts_reviewed": 93,
+  "day": 45,
+  "sessions_completed": 62,
+  "concepts_reviewed": 94,
   "today": {
-    "project": "Azure Environments",
-    "learning": "AZ-104",
-    "skill": "Azure Cloud",
-    "sessions": 1,
-    "concepts": 1
+    "project": "",
+    "learning": "",
+    "skill": "",
+    "sessions": 0,
+    "concepts": 0
   }
 }

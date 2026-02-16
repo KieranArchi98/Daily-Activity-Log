@@ -2,6 +2,14 @@
 
 This repository is automatically updated every day.
 
+## 2026-02-16
+- Continued work on **Azure Environments**
+- Focused study on **AZ-104**
+- Strengthened **Azure Cloud** through hands-on practice
+- Study sessions today: 1
+- Total sessions completed: 62
+- Total concepts reviewed: 94
+
 ## 2026-02-14
 - Continued work on **Azure Project**
 - Focused study on **Microsoft Entra ID**

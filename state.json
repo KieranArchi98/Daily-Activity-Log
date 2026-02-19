@@ -3,10 +3,10 @@
   "sessions_completed": 62,
   "concepts_reviewed": 94,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "Az-104 Project",
+    "learning": "Entra ID",
+    "skill": "Cloud",
+    "sessions": 1,
+    "concepts": 1
   }
 }

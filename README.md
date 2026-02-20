@@ -2,6 +2,14 @@
 
 This repository is automatically updated every day.
 
+## 2026-02-20
+- Continued work on **Az-104 Project**
+- Focused study on **Entra ID**
+- Strengthened **Cloud** through hands-on practice
+- Study sessions today: 1
+- Total sessions completed: 63
+- Total concepts reviewed: 95
+
 ## 2026-02-16
 - Continued work on **Azure Environments**
 - Focused study on **AZ-104**

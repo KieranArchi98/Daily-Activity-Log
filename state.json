@@ -3,10 +3,10 @@
   "sessions_completed": 63,
   "concepts_reviewed": 95,
   "today": {
-    "project": "",
-    "learning": "",
-    "skill": "",
-    "sessions": 0,
-    "concepts": 0
+    "project": "Azure Dashboard App",
+    "learning": "ARM & Bicep",
+    "skill": "Cloud Computing",
+    "sessions": 1,
+    "concepts": 1
   }
 }
